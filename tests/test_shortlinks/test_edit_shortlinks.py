@@ -48,8 +48,8 @@ class TestGetShorLinks:
         del_res = request_method(POST, url=base_url, headers={"Authorization": self.header},
                                  json=operations('delete', sk=sl_new, pk=pk, uid=uid))
 
-        retrieve_edited_sl_response_json = retrieve_edited_sl_response.json()
-        assert retrieve_edited_sl_response_json['data']['getShortcut']['shortlink'] == 'o/' + sl_new
+
+        assert retrieve_edited_sl_response.json()['data']['getShortcut']['shortlink'] == 'o/' + sl_new
 
     def test_edit_shorlink_with_invalid_shortlink_name(self):
         # create a shortlink and verify the details of the same
@@ -80,9 +80,13 @@ class TestGetShorLinks:
                                           json=operations('edit', sl=sl_new, des='edited description', url=url, sk=sl,
                                                           pk=pk, uid=uid)
                                           )
+        # deleting the above created SL
 
-        retrieve_edited_sl_response_json = edit_sl_response.json()
-        assert retrieve_edited_sl_response_json['errors'][0][
+        del_res = request_method(POST, url=base_url, headers={"Authorization": self.header},
+                                 json=operations('delete', sk=sl_new, pk=pk, uid=uid))
+
+
+        assert edit_sl_response.json()['errors'][0][
                    'message'] == 'Please pass a valid shortlink value for shortlink'
 
     def test_validation_when_trying_to_edit_an_invalid_shortlink(self):
