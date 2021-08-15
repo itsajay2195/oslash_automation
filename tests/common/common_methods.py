@@ -68,6 +68,23 @@ def operations(i, limit=15, sk=None, sl=None, des=None, url=None, pk=None, uid=N
                             "   shortlink\n    sk\n    uid\n    createdAt\n    _version\n  }\n}\n", "variables": {
             "input": {"_version": 0}, "pk": str(pk), "sk": "LINK#o/" + str(sk),
             "uid": str(uid)}},
+
+        'edit': {
+            "query": "mutation UpdateShortcutV2($input: UpdateShortcutInput!, $pk: String!, $sk: String!, "
+                     "$uid: String!) {\n  updateShortcutV2(input: $input, pk: $pk, sk: $sk, uid: $uid) {\n    "
+                     "creator\n        description\n    pk\n    shortlink\n    sk\n    url\n    uid\n    "
+                     "collectionId\n    collection {\n      name\n      shortlink\n      pk\n      sk\n      uid\n    "
+                     "  createdAt\n      _version\n    }\n    sharedWith\n    sharedGroups {\n      pk\n      sk\n    "
+                     "  group {\n        sk\n        members\n        uId\n        uid\n        groupName\n        "
+                     "groupSlug\n      }\n    }\n    sharedMembers {\n      pk\n      sk\n      member {\n        "
+                     "pk\n        profileImageUrl\n        sk\n        uid\n        createdAt\n        email\n        "
+                     "fName\n        lName\n        _version\n      }\n    }\n    createdAt\n    thisMonthAnalytics {"
+                     "\n      dates {\n        date\n        dateValue\n      }\n    }\n    lastMonthAnalytics {\n    "
+                     "  dates {\n        date\n        dateValue\n      }\n    }\n    _version\n  }\n}\n",
+            "variables": {"input": {"description": str(des), "shortlink": "o/"+str(sl),
+                                    "url": str(url), "_version": 1},
+                          "pk": str(pk), "sk": "LINK#o/"+str(sk),
+                          "uid": str(uid)}}
     }
     return switcher.get(i, "Invalid")
 
