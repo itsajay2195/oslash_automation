@@ -1,0 +1,23 @@
+The test automation is been implemented using the pytest library of python(python3.7).
+
+1. Upon cloning the repo, navigate to the requirements.txt file and install the listed requirements.
+The suggested IDE is pycharm.
+
+2. Upon installation kindly run the below commands to execute the script. The results of the test execution can
+viewed in two reports.
+    a. Two view in a html report, run the below command from the terminal on the root directory for the project:
+        pytest --html=<reportName>.html
+        (eg)pytest --html=testreport.html
+
+    b. Two view in a allure report, run the below command from the terminal on the root directory for the project:
+        ==============================================================================================
+        ensure that your system has allure installed already in it,it can be installed using brew as:
+            brew install allure
+
+        ==============================================================================================
+        a.pytest --alluredir= <directory>
+        (eg) pytest--alluredir=report_allure
+
+        b. run the below command to create the allure server view the report:
+        allure serve <directory>/ -(directory name mentioned in the above step)
+        (eg) allure serve report_allure/
