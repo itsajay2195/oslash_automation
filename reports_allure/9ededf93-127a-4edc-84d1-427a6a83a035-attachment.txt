@@ -1,0 +1,1 @@
+b'{"data":{"getShortcut":null},"errors":[{"path":["getShortcut"],"data":null,"errorType":"LambdaException","errorInfo":null,"locations":[{"line":2,"column":3,"sourceName":null}],"message":"Shortcut does not exist"}]}'

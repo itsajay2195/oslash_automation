@@ -10,7 +10,7 @@ class TestGetShorLinks:
     def test_retrieve_all_available_sl_should_yield_http_200(self):
 
         # print("ENV variabel is ", $ENV_NAME)
-        # creating shortlinks as desired
+        # creating number of shortlinks as desired
         sls = []
         pks = []
         uids = []
@@ -41,9 +41,9 @@ class TestGetShorLinks:
                            json=operations('delete', sk=sls[shortlink_deletion], pk=pks[shortlink_deletion],
                                            uid=uids[shortlink_deletion]))
 
-        assert retrieve_response.status_code == 200 and success_assertion("data retrieval success")
+        assert retrieve_response.status_code == 200
         assert retrieve_response.json()['data']['queryShortcuts']['total'] == count and success_assertion(
-            "total available shortlinks count is valid")
+            "Shortlinks retrieval successful and appropriate total is returned"), "shotrlinks retrieval failed"
 
     def test_retrieve_short_link_yield_200(self):
         # create a shortlink and verify the details of the same
@@ -64,17 +64,17 @@ class TestGetShorLinks:
                                               json=operations('get_SL', sk=sl)
                                               )
         retrieve_sl_response_json = retrieve_sl_response.json()
+
         # deleting the above created SL
         pk = retrieve_sl_response_json['data']['getShortcut']['pk']
         uid = retrieve_sl_response_json['data']['getShortcut']['uid']
         del_res = request_method(POST, url=base_url, headers={"Authorization": self.header},
                                  json=operations('delete', sk=sl, pk=pk, uid=uid))
 
-        assert retrieve_sl_response.status_code == 200 and success_assertion("short link retrieval success")
-        assert retrieve_sl_response_json['data']['getShortcut']['shortlink'] == "o/" + sl and success_assertion(
-            "appropriate short link retrieved")
+        assert retrieve_sl_response.status_code == 200, "short link retrieval failed"
+        assert retrieve_sl_response_json['data']['getShortcut']['shortlink'] == "o/" + sl
         assert retrieve_sl_response_json['data']['getShortcut']['url'] == url and success_assertion(
-            "appropriate short link url ")
+            "short link retrieval success"), "short link retrieval failed"
 
     def test_retrieve_invalid_short_link_yield_404(self):
         retrieve_response = request_method(POST, url=base_url,
@@ -83,9 +83,9 @@ class TestGetShorLinks:
                                            json=operations('get_SL', sk='ok323')
                                            )
 
-        assert retrieve_response.json()['errors'][0]['message'] == SL_DOES_NOT_EXIST and \
-               success_assertion("appropriate validation message")
-        assert retrieve_response.status_code == 404 and success_assertion("short link retrieval success"), \
+        assert retrieve_response.json()['errors'][0]['message'] == SL_DOES_NOT_EXIST
+
+        assert retrieve_response.status_code == 404 and success_assertion("appropriate validation"), \
             'Inappropriate status code'
 
     def test_retrieve_short_link_with_invalid_token_should_yield_401(self):
@@ -95,11 +95,10 @@ class TestGetShorLinks:
                                            json=operations('get_SL', sk='ok323')
                                            )
 
-        assert retrieve_response.json()['errors'][0]['errorType'] == AUTH_ERROR and \
-               success_assertion("appropriate errorType message")
+        assert retrieve_response.json()['errors'][0]['errorType'] == AUTH_ERROR
 
         assert retrieve_response.json()['errors'][0]['message'] == AUTH_ERROR_MESSAGE and \
-               success_assertion("appropriate validation message")
+               success_assertion("appropriate validation messages")
 
     def test_retrieve_short_link_and_validate_its_details(self):
         # create a shortlink and verify the details of the same
@@ -126,4 +125,5 @@ class TestGetShorLinks:
                                  json=operations('delete', sk=sl, pk=pk, uid=uid))
 
         assert retrieve_sl_response['data']['getShortcut']['url'] == url
-        assert retrieve_sl_response['data']['getShortcut']['description'] == des
+        assert retrieve_sl_response['data']['getShortcut']['description'] == des and success_assertion(
+            "shortlink retrieval successful"), 'shortlink retrieval unsuccessful'

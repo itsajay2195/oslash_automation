@@ -1,0 +1,2 @@
+b'{\n  "errors" : [ {\n    "errorType" : "UnauthorizedException",\n    "message" : "Valid authorization header not provided."\n  } ]\n}'
+appropriate validation messages
