@@ -5,7 +5,8 @@ The suggested IDE is pycharm.
 
 2. Upon installation kindly run the below commands to execute the script.
 
-    1.Setting up the environment variable. The environment variable can be set as below:
+    1.Setting up the environment variable. The environment variable can be set by running the below command from the
+    terminal:
         export TOKEN=<token>
     2.The results of the test execution can be viewed in two reports.
     a. Two view in a html report, run the below command from the terminal on the root directory for the project:
