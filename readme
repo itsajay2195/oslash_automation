@@ -3,8 +3,11 @@ The test automation is been implemented using the pytest library of python(pytho
 1. Upon cloning the repo, navigate to the requirements.txt file and install the listed requirements.
 The suggested IDE is pycharm.
 
-2. Upon installation kindly run the below commands to execute the script. The results of the test execution can
-viewed in two reports.
+2. Upon installation kindly run the below commands to execute the script.
+
+    1.Setting up the environment variable. The environment variable can be set as below:
+        export TOKEN=<token>
+    2.The results of the test execution can be viewed in two reports.
     a. Two view in a html report, run the below command from the terminal on the root directory for the project:
         pytest --html=<reportName>.html
         (eg)pytest --html=testreport.html
